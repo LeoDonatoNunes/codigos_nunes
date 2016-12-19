@@ -35,7 +35,9 @@ plotar_abaco <- function(dados, esquema_cores, grande_zona = T, diretorio, nome_
   png(filename = paste(diretorio, "/", nome_arquivo, ".png", sep = ""), width = 1300, height = 900)
   
   
-  # Inicia o plot
+  # Inicia o plot ----
+  
+  # Executa os testes de plotar a vazão e a legenda.
   if(legenda == T & plotar_vazao == T){
     par(cex = 1.5, cex.axis = 1.5, cex.lab = 1.5, mar = c(4,6,4,5))
   }
@@ -48,10 +50,15 @@ plotar_abaco <- function(dados, esquema_cores, grande_zona = T, diretorio, nome_
   if(legenda == F & plotar_vazao == F){
     par(cex = 1.5, cex.axis = 1.5, cex.lab = 1.5, mar = c(4,6,2,3))
   }
-  plot(a$data_hora, a$peixe_id, axes = F, ylab = "", xlab = "Data da detecção")
+  
+  # Abre o dispositivo de plotagem
+  plot(a$data_hora, a$peixe_id, axes = F, ylab = "", xlab = "Data da detecção") # Plot com todos os dados. Sem os eixos
   axis.POSIXct(1, at = seq(min(a$data_hora), max(a$data_hora), 
-                           by = escala_periodo), format = "%d/%m/%Y")
+                           by = escala_periodo), format = "%d/%m/%Y") # Configura o eixo de data e hora
+  # Configura o eixo dos códigos dos peixes
   axis(2, at = 1:length(u1), labels = u1, las = 2)
+  
+  # Texto das margens
   mtext("Código do indivíduo", side = 2, line = 4, cex = 2.3)
   mtext(paste("n = ", length(u1), sep = ""), side = 4, line = -1, las = 2, at = length(u1) + n - 1, cex = 2)
   abline(h = 1:length(u1), lty = 8, col = 8)
